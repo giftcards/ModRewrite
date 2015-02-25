@@ -1,6 +1,6 @@
 {
-    "name": "giftcards/fixed-width",
-    "description": "Library for working with fixed width files as well as their associated specs",
+    "name": "giftcards/mod-rewrite",
+    "description": "A PHP implementation of mod rewrite",
     "license": "MIT",
     "autoload": {
         "psr-0": {
