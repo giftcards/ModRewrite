@@ -1,0 +1,20 @@
+{
+    "name": "giftcards/fixed-width",
+    "description": "Library for working with fixed width files as well as their associated specs",
+    "license": "MIT",
+    "autoload": {
+        "psr-0": {
+            "Giftcards\\ModRewrite": "src/"
+        }
+    },
+    "require": {
+        "php": ">=5.3"
+    },
+    "require-dev": {
+        "mockery/mockery": ">=0.8@dev",
+        "fzaninotto/faker" : "~1.2",
+        "symfony/http-foundation": "~2.0"
+    },
+    "target-dir": "src/Giftcards/ModRewrite",
+    "keywords": ["mod rewrite", "mod_rewrite","url rewrite","request rewrite"]
+}
