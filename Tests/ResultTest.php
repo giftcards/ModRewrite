@@ -18,17 +18,10 @@ class ResultTest extends TestCase
         $url = $this->getFaker()->url;
         $result = new Result($url);
         $this->assertSame($url, $result->getUrl());
-        $this->assertFalse($result->getRedirect());
-        $this->assertNull($result->getMatchedRule());
-        $redirect = $this->getFaker()->randomNumber;
-        $result = new Result($url, $redirect);
-        $this->assertSame($url, $result->getUrl());
-        $this->assertSame($redirect, $result->getRedirect());
         $this->assertNull($result->getMatchedRule());
         $rule = \Mockery::mock('Giftcards\ModRewrite\Compiler\Rule');
-        $result = new Result($url, $redirect, $rule);
+        $result = new Result($url, $rule);
         $this->assertSame($url, $result->getUrl());
-        $this->assertSame($redirect, $result->getRedirect());
         $this->assertSame($rule, $result->getMatchedRule());
     }
 }

@@ -10,8 +10,9 @@ same way as apache would.
 Support
 -------
 RewriteRule, RewriteCond, RewriteEngine are supported with the caveat that certain
-server variables are not implemented yet in the replacements system. adding support
-for more variable as well as the other directives is pretty straightforward through
+server variables are not implemented yet in the replacements system as well as a bunch of the
+more advanced rewriting flags for the RewriteRule directive arent implemented. Adding support
+for these features as well as the other directives is pretty straightforward through
 extension it just hasn't been done yet. At the moment only the server variables QUERY_STRING,
  REQUEST_URI, REQUEST_FILENAME, HTTP_HOST are supported.
 Feel free to PR support for more!
@@ -45,9 +46,8 @@ $result = $rewriter->rewrite(
 
 ```
 
-the `$result` is an instance of `Giftcards\ModRewrite\Result` you can get the rewriten
-url from `getUrl()` this will be populated wether it was matched and rewritten by a
-rule or not. you can get if there should be a redirect and the status code to use for
-it from `getRedirect()` and you can get the rule that was matched from `getMatchedRule()`.
+the `$result` is an instance of `Giftcards\ModRewrite\Result` you can get the rewritten
+url from `getUrl()` this will be populated whether it was matched and rewritten by a
+rule or not. You can get the rule that was matched from `getMatchedRule()`.
 the rule contains the rewrite directive as well as the condition directives. 
 If no rule was matched `getMatchedRule()` will return `null`.

@@ -224,7 +224,7 @@ class RewriterTest extends TestCase
             ->andReturn($formatted)
         ;
         $this->assertEquals(
-            new Result($formatted, false, $rules[2]),
+            new Result($formatted, $rules[2]),
             $this->rewriter->rewrite($pathInfo, $request, $configuration)
         );
     }
@@ -307,7 +307,7 @@ class RewriterTest extends TestCase
             ->andReturn($formatted)
         ;
         $this->assertEquals(
-            new Result($formatted, false, $rules[2]),
+            new Result($formatted, $rules[2]),
             $this->rewriter->rewrite($pathInfo, $request, $configuration)
         );
     }

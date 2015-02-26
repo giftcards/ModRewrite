@@ -41,14 +41,11 @@ class Rewriter
                 $this->ruleMatcher->ruleMatches($pathInfo, $matchState->getRule(), $matchState)
                 && $this->passesConditions($matchState)
             ) {
-                $flags = $rule->getRewrite()->getFlags();
-                
                 return new Result(
                     $this->formatter->format(
                         $matchState->getRule()->getRewrite()->getPredicate(),
                         $matchState
                     ),
-                    !empty($flags['R']) ? $flags['R'] : false,
                     $rule
                 );
             }

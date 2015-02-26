@@ -14,13 +14,11 @@ use Giftcards\ModRewrite\Compiler\Rule;
 class Result
 {
     protected $url;
-    protected $redirect;
     protected $matchedRule;
 
-    public function __construct($url, $redirect = false, Rule $matchedRule = null)
+    public function __construct($url, Rule $matchedRule = null)
     {
         $this->url = $url;
-        $this->redirect = $redirect;
         $this->matchedRule = $matchedRule;
     }
 
@@ -30,14 +28,6 @@ class Result
     public function getUrl()
     {
         return $this->url;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getRedirect()
-    {
-        return $this->redirect;
     }
 
     /**
