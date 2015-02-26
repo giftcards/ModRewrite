@@ -19,6 +19,7 @@ use Giftcards\ModRewrite\Formatter\ApacheServerVariableFormatter;
 use Giftcards\ModRewrite\Formatter\ChainFormatter;
 use Giftcards\ModRewrite\Formatter\FormatterInterface;
 use Giftcards\ModRewrite\Formatter\LastPassingConditionFormatter;
+use Giftcards\ModRewrite\Formatter\PathInfoFormatter;
 use Giftcards\ModRewrite\Formatter\RewriteFormatter;
 use Giftcards\ModRewrite\Rule\MatcherInterface;
 use Giftcards\ModRewrite\Rule\RegexMatcher;
@@ -117,6 +118,7 @@ class RewriterBuilder
             ->add(new ApacheServerVariableFormatter())
             ->add(new LastPassingConditionFormatter())
             ->add(new RewriteFormatter())
+            ->add(new PathInfoFormatter())
         ;
         return $chain;
     }

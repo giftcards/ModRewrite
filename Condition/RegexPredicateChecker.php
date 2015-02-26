@@ -26,7 +26,7 @@ class RegexPredicateChecker implements PredicateCheckerInterface
     ) {
         $regex = sprintf('#%s#', str_replace('#', '\#', $predicate));
         
-        if (!empty($flags['NC'])) {
+        if (!empty($flags['NC']) || !empty($flags['nocase'])) {
             
             $regex .= 'i';
         }

@@ -70,12 +70,12 @@ class Rewriter
                 $matchState
             );
 
-            if (!$passes && empty($flags['OR'])) {
+            if (!$passes && empty($flags['OR']) && empty($flags['ornext'])) {
 
                 return false;
             }
 
-            if ($passes && !empty($flags['OR'])) {
+            if ($passes && (!empty($flags['OR']) || !empty($flags['ornext']))) {
 
                 return true;
             }

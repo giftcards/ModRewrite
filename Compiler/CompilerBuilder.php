@@ -6,7 +6,7 @@
  * Time: 3:12 PM
  */
 
-namespace Giftcards\ModRewrite;
+namespace Giftcards\ModRewrite\Compiler;
 
 
 use Giftcards\ModRewrite\Compiler\Compiler;

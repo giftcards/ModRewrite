@@ -29,7 +29,7 @@ to build the rewriter and the file compiler
 <?php
 
 use Giftcards\ModRewrite\RewriterBuilder;
-use Giftcards\ModRewriter\CompilerBuilder;
+use Giftcards\ModRewriter\Compiler\CompilerBuilder;
 use Symfony\Component\HttpFoundation\Request;
 
 $rewriter = RewriterBuilder::create()->build();
