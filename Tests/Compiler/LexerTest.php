@@ -38,6 +38,7 @@ RewriteLogLevel 5
 
 RewriteOptions Inherit
 RewriteMap examplemap txt:/path/to/file/map.txt
+
 CONTENT;
 
         $this->assertEquals(array(

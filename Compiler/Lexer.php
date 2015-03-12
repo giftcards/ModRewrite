@@ -14,7 +14,7 @@ class Lexer
     public function lex($contents)
     {
         preg_match_all(
-            '/^(Rewrite(?:Engine|Cond|Rule|Options|Base|Map|Log|LogLevel))(?:\s+([^\s]+))?\s+([^\s]+)(?:\s+\[([^\s]+)\])?\s*(?:\n|$)/m', 
+            '/^(Rewrite(?:Engine|Cond|Rule|Options|Base|Map|Log|LogLevel))(?:\s+([^\s]+))?\s+([^\s]+)(?:\s+\[([^\s]+)\])?\s*$/m', 
             $contents,
             $matches,
             PREG_SET_ORDER
