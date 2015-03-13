@@ -72,7 +72,7 @@ class MatchState
 
     public function getMatchReference($key, $type)
     {
-        return isset($this->matchReferences[$type][$key]) ? $this->matchReferences[$type][$key] : '';
+        return isset($this->matchReferences[$type][$key]) ? $this->matchReferences[$type][$key] : null;
     }
 
     public function getMatchReferences($type)
