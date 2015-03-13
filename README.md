@@ -39,7 +39,7 @@ $request = Request::createFromGlobals();
 $file = __DIR__.'/rewrite_rules';
 
 $result = $rewriter->rewrite(
-    $request->getPathInfo(),
+    rawurldecode($request->getPathInfo()),
     $request,
     $compiler->compile(file_get_contents($file))
 );
@@ -51,6 +51,8 @@ url from `getUrl()` this will be populated whether it was matched and rewritten 
 rule or not. You can get the rule that was matched from `getMatchedRule()`.
 the rule contains the rewrite directive as well as the condition directives. 
 If no rule was matched `getMatchedRule()` will return `null`.
+
+Note: make sure your urls are decoded before passing them to the rewriter since it could cause odd things if it's not decoded
 
 ###Formatters###
 

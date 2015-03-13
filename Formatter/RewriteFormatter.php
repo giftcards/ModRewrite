@@ -19,12 +19,10 @@ class RewriteFormatter implements FormatterInterface
     ) {
         return preg_replace_callback('/\$(\d+)/', function(array $matches) use ($matchState)
         {
-            $reference = $matchState->getMatchReference(
+            return $matchState->getMatchReference(
                 $matches[1],
                 MatchState::MATCH_REFERENCE_TYPE_REWRITE
             );
-
-            return (is_null($reference)) ? $matches[0] : $reference;
         }, $value);
     }
 }
