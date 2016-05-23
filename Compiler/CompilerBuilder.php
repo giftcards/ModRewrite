@@ -36,6 +36,10 @@ class CompilerBuilder
      */
     public function getLexer()
     {
+        if (!$this->lexer) {
+            $this->lexer = $this->getDefaultLexer();
+        }
+        
         return $this->lexer;
     }
 
@@ -54,6 +58,10 @@ class CompilerBuilder
      */
     public function getParser()
     {
+        if (!$this->parser) {
+            $this->parser = $this->getDefaultParser();
+        }
+        
         return $this->parser;
     }
 

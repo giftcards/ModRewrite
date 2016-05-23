@@ -31,7 +31,7 @@ class RewriterBuilder
     protected $conditionPredicateChecker;
     protected $workingDir = '';
 
-    public function create()
+    public static function create()
     {
         return new static();
     }
