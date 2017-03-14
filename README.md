@@ -54,6 +54,15 @@ If no rule was matched `getMatchedRule()` will return `null`.
 
 Note: make sure your urls are decoded before passing them to the rewriter since it could cause odd things if it's not decoded
 
+### Processor ###
+The processor class can be used to process a submitted request along with a matched
+result and spit out a result. After processing the request according to the rules
+given it will either return a clone of the given request with the query and uri changed
+according to the matched rule, or a `Symfony\Component\HttpFoundation\Response` if the
+rule says to return some sort of status code or redirect (R|redirect, F|forbidden, G|gone etc).
+You can use these as they are in your application to either the forward a request
+or return a response
+
 ###Formatters###
 
 Formatters are the clases that do all the replacing of values in the `TestString`

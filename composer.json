@@ -11,9 +11,10 @@
         "php": ">=5.3"
     },
     "require-dev": {
-        "mockery/mockery": ">=0.8@dev",
+        "mockery/mockery": "0.9.3",
         "fzaninotto/faker" : "~1.2",
-        "symfony/http-foundation": "~2.0"
+        "symfony/http-foundation": "~2.0",
+        "phpunit/phpunit": "^4.0"
     },
     "target-dir": "src/Giftcards/ModRewrite",
     "keywords": ["mod rewrite", "mod_rewrite","url rewrite","request rewrite"]

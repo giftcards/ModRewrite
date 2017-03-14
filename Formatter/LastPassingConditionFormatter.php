@@ -8,7 +8,6 @@
 
 namespace Giftcards\ModRewrite\Formatter;
 
-
 use Giftcards\ModRewrite\MatchState;
 
 class LastPassingConditionFormatter implements FormatterInterface
@@ -17,8 +16,7 @@ class LastPassingConditionFormatter implements FormatterInterface
         $value,
         MatchState $matchState
     ) {
-        return preg_replace_callback('/%(\d+)/', function(array $matches) use ($matchState)
-        {
+        return preg_replace_callback('/%(\d+)/', function (array $matches) use ($matchState) {
             return $matchState->getMatchReference(
                 (int)$matches[1],
                 MatchState::MATCH_REFERENCE_TYPE_CONDITION

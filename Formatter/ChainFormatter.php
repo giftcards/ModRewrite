@@ -8,7 +8,6 @@
 
 namespace Giftcards\ModRewrite\Formatter;
 
-
 use Giftcards\ModRewrite\MatchState;
 
 class ChainFormatter implements FormatterInterface
@@ -27,7 +26,6 @@ class ChainFormatter implements FormatterInterface
         MatchState $matchState
     ) {
         foreach ($this->formatter as $formatter) {
-
             $value = $formatter->format(
                 $value,
                 $matchState

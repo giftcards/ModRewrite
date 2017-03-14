@@ -8,9 +8,7 @@
 
 namespace Giftcards\ModRewrite\Formatter;
 
-
 use Giftcards\ModRewrite\MatchState;
-use Symfony\Component\HttpFoundation\Request;
 
 class ApacheServerVariableFormatter implements FormatterInterface
 {
@@ -19,20 +17,16 @@ class ApacheServerVariableFormatter implements FormatterInterface
     public function __construct()
     {
         $this->variables = array(
-            'QUERY_STRING' => function(MatchState $matchState)
-            {
+            'QUERY_STRING' => function (MatchState $matchState) {
                 return http_build_query($matchState->getRequest()->query->all(), '', '&');
             },
-            'REQUEST_URI' => function(MatchState $matchState)
-            {
+            'REQUEST_URI' => function (MatchState $matchState) {
                 return $matchState->getPathInfo();
             },
-            'REQUEST_FILENAME' => function(MatchState $matchState)
-            {
+            'REQUEST_FILENAME' => function (MatchState $matchState) {
                 return $matchState->getPathInfo();
             },
-            'HTTP_HOST' => function(MatchState $matchState)
-            {
+            'HTTP_HOST' => function (MatchState $matchState) {
                 return $matchState->getRequest()->getHttpHost();
             },
         );
@@ -46,10 +40,8 @@ class ApacheServerVariableFormatter implements FormatterInterface
         
         return preg_replace_callback(
             '/%{([^}]+)}/',
-            function(array $matches) use ($variables, $matchState)
-            {
+            function (array $matches) use ($variables, $matchState) {
                 if (!isset($variables[$matches[1]])) {
-    
                     return $matches[0];
                 }
     

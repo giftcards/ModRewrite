@@ -18,7 +18,6 @@ class PathInfoFormatter implements FormatterInterface
         MatchState $matchState
     ) {
         if ($value == '-') {
-            
             return $matchState->getPathInfo();
         }
         

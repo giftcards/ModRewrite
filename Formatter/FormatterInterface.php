@@ -8,7 +8,6 @@
 
 namespace Giftcards\ModRewrite\Formatter;
 
-
 use Giftcards\ModRewrite\MatchState;
 
 interface FormatterInterface

@@ -8,7 +8,6 @@
 
 namespace Giftcards\ModRewrite\Formatter;
 
-
 use Giftcards\ModRewrite\MatchState;
 
 class RewriteFormatter implements FormatterInterface
@@ -17,8 +16,7 @@ class RewriteFormatter implements FormatterInterface
         $value,
         MatchState $matchState
     ) {
-        return preg_replace_callback('/\$(\d+)/', function(array $matches) use ($matchState)
-        {
+        return preg_replace_callback('/\$(\d+)/', function (array $matches) use ($matchState) {
             return $matchState->getMatchReference(
                 $matches[1],
                 MatchState::MATCH_REFERENCE_TYPE_REWRITE
