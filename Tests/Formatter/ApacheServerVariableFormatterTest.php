@@ -10,15 +10,16 @@ namespace Giftcards\ModRewrite\Tests\Formatter;
 
 
 use Giftcards\ModRewrite\Formatter\ApacheServerVariableFormatter;
-use Giftcards\ModRewrite\Tests\TestCase;
+use Mockery;
+use Omni\TestingBundle\TestCase\Extension\AbstractExtendableTestCase;
 use Symfony\Component\HttpFoundation\Request;
 
-class ApacheServerVariableFormatterTest extends TestCase
+class ApacheServerVariableFormatterTest extends AbstractExtendableTestCase
 {
     /** @var  ApacheServerVariableFormatter */
     protected $formatter;
 
-    public function setUp()
+    public function setUp() :void
     {
         $this->formatter = new ApacheServerVariableFormatter();
     }
@@ -26,7 +27,7 @@ class ApacheServerVariableFormatterTest extends TestCase
     public function testFormatWhereVariableNotInList()
     {
         $request = new Request();
-        $state = \Mockery::mock('Giftcards\ModRewrite\MatchState')
+        $state = Mockery::mock('Giftcards\ModRewrite\MatchState')
             ->shouldReceive('getRequest')
             ->andReturn($request)
             ->getMock()
@@ -37,8 +38,8 @@ class ApacheServerVariableFormatterTest extends TestCase
 
     public function testFormatWhereVariableIsQueryString()
     {
-        $request = new Request(array('key' => 'value', 'key2' => 'value2'));
-        $state = \Mockery::mock('Giftcards\ModRewrite\MatchState')
+        $request = new Request(['key' => 'value', 'key2' => 'value2']);
+        $state = Mockery::mock('Giftcards\ModRewrite\MatchState')
             ->shouldReceive('getRequest')
             ->andReturn($request)
             ->getMock()
@@ -49,7 +50,7 @@ class ApacheServerVariableFormatterTest extends TestCase
 
     public function testFormatWhereVariableIsRequestUri()
     {
-        $state = \Mockery::mock('Giftcards\ModRewrite\MatchState')
+        $state = Mockery::mock('Giftcards\ModRewrite\MatchState')
             ->shouldReceive('getPathInfo')
             ->andReturn('path!')
             ->getMock()
@@ -60,7 +61,7 @@ class ApacheServerVariableFormatterTest extends TestCase
 
     public function testFormatWhereVariableIsRequestFilename()
     {
-        $state = \Mockery::mock('Giftcards\ModRewrite\MatchState')
+        $state = Mockery::mock('Giftcards\ModRewrite\MatchState')
             ->shouldReceive('getPathInfo')
             ->andReturn('path!')
             ->getMock()
@@ -71,8 +72,8 @@ class ApacheServerVariableFormatterTest extends TestCase
 
     public function testFormatWhereVariableIsHttpHost()
     {
-        $request = new Request(array(), array(), array(), array(), array(), array('HTTP_HOST' => 'big_host'));
-        $state = \Mockery::mock('Giftcards\ModRewrite\MatchState')
+        $request = new Request([], [], [], [], [], ['HTTP_HOST' => 'big_host']);
+        $state = Mockery::mock('Giftcards\ModRewrite\MatchState')
             ->shouldReceive('getRequest')
             ->andReturn($request)
             ->getMock()

@@ -22,7 +22,7 @@ class ExistencePredicateChecker implements PredicateCheckerInterface
 
     public function supports($predicate)
     {
-        return in_array($predicate, array('-d', '-f'));
+        return in_array($predicate, ['-d', '-f']);
     }
 
     public function checkPredicate(

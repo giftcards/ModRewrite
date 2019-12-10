@@ -14,7 +14,7 @@ class Rule
     /** @var Directive  */
     protected $rewrite;
     /** @var Directive[] */
-    protected $conditions = array();
+    protected $conditions = [];
 
     public function __construct(Directive $rewrite, array $conditions)
     {

@@ -54,6 +54,6 @@ class NotPredicateChecker implements PredicateCheckerInterface
             $predicate = substr($predicate, 1);
         }
         
-        return array($predicate, $not);
+        return [$predicate, $not];
     }
 }

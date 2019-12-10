@@ -12,17 +12,18 @@ use Giftcards\ModRewrite\Compiler\Directive;
 use Giftcards\ModRewrite\Compiler\Rule;
 use Giftcards\ModRewrite\Processor;
 use Giftcards\ModRewrite\Result;
+use Omni\TestingBundle\TestCase\Extension\AbstractExtendableTestCase;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-class ProcessorTest extends TestCase
+class ProcessorTest extends AbstractExtendableTestCase
 {
     /** @var  Processor */
     protected $processor;
 
-    public function setUp()
+    public function setUp() :void
     {
         $this->processor = new Processor();
     }
@@ -35,14 +36,14 @@ class ProcessorTest extends TestCase
             new RedirectResponse($url, $statusCode),
             $this->processor->process(new Request(), new Result(
                 $url,
-                new Rule(new Directive('', '', '', '', array('redirect' => $statusCode)), array())
+                new Rule(new Directive('', '', '', '', ['redirect' => $statusCode]), [])
             ))
         );
         $this->assertEquals(
             new RedirectResponse($url, $statusCode),
             $this->processor->process(new Request(), new Result(
                 $url,
-                new Rule(new Directive('', '', '', '', array('R' => $statusCode)), array())
+                new Rule(new Directive('', '', '', '', ['R' => $statusCode]), [])
             ))
         );
     }
@@ -53,14 +54,14 @@ class ProcessorTest extends TestCase
             new Response('', 410),
             $this->processor->process(new Request(), new Result(
                 $this->getFaker()->unique()->url,
-                new Rule(new Directive('', '', '', '', array('gone' => true)), array())
+                new Rule(new Directive('', '', '', '', ['gone' => true]), [])
             ))
         );
         $this->assertEquals(
             new Response('', 410),
             $this->processor->process(new Request(), new Result(
                 $this->getFaker()->unique()->url,
-                new Rule(new Directive('', '', '', '', array('G' => true)), array())
+                new Rule(new Directive('', '', '', '', ['G' => true]), [])
             ))
         );
     }
@@ -71,14 +72,14 @@ class ProcessorTest extends TestCase
             new Response('', 403),
             $this->processor->process(new Request(), new Result(
                 $this->getFaker()->unique()->url,
-                new Rule(new Directive('', '', '', '', array('forbidden' => true)), array())
+                new Rule(new Directive('', '', '', '', ['forbidden' => true]), [])
             ))
         );
         $this->assertEquals(
             new Response('', 403),
             $this->processor->process(new Request(), new Result(
                 $this->getFaker()->unique()->url,
-                new Rule(new Directive('', '', '', '', array('F' => true)), array())
+                new Rule(new Directive('', '', '', '', ['F' => true]), [])
             ))
         );
     }
@@ -86,14 +87,13 @@ class ProcessorTest extends TestCase
     public function testProcessWithoutQueryStringAppendButQueryEmpty()
     {
         $url = $this->getFaker()->unique()->url;
-        var_dump($url);
         $request = new Request(
-            array($this->getFaker()->unique()->word => $this->getFaker()->unique()->word),
-            array($this->getFaker()->unique()->word => $this->getFaker()->unique()->word),
-            array($this->getFaker()->unique()->word => $this->getFaker()->unique()->word),
-            array($this->getFaker()->unique()->word => $this->getFaker()->unique()->word),
-            array($this->getFaker()->unique()->word => new UploadedFile(__FILE__, '')),
-            array($this->getFaker()->unique()->word => $this->getFaker()->unique()->word),
+            [$this->getFaker()->unique()->word => $this->getFaker()->unique()->word],
+            [$this->getFaker()->unique()->word => $this->getFaker()->unique()->word],
+            [$this->getFaker()->unique()->word => $this->getFaker()->unique()->word],
+            [$this->getFaker()->unique()->word => $this->getFaker()->unique()->word],
+            [$this->getFaker()->unique()->word => new UploadedFile(__FILE__, '')],
+            [$this->getFaker()->unique()->word => $this->getFaker()->unique()->word],
             $this->getFaker()->unique()->sentence
         );
         $newRequest = $request->duplicate();
@@ -102,7 +102,7 @@ class ProcessorTest extends TestCase
             $newRequest,
             $this->processor->process($request, new Result(
                 $url,
-                new Rule(new Directive('', '', '', '', array()), array())
+                new Rule(new Directive('', '', '', '', []), [])
             ))
         );
     }
@@ -118,23 +118,22 @@ class ProcessorTest extends TestCase
             $queryKey,
             $queryValue
         );
-        var_dump($url);
         $request = new Request(
-            array($this->getFaker()->unique()->word => $this->getFaker()->unique()->word),
-            array($this->getFaker()->unique()->word => $this->getFaker()->unique()->word),
-            array($this->getFaker()->unique()->word => $this->getFaker()->unique()->word),
-            array($this->getFaker()->unique()->word => $this->getFaker()->unique()->word),
-            array($this->getFaker()->unique()->word => new UploadedFile(__FILE__, '')),
-            array($this->getFaker()->unique()->word => $this->getFaker()->unique()->word),
+            [$this->getFaker()->unique()->word => $this->getFaker()->unique()->word],
+            [$this->getFaker()->unique()->word => $this->getFaker()->unique()->word],
+            [$this->getFaker()->unique()->word => $this->getFaker()->unique()->word],
+            [$this->getFaker()->unique()->word => $this->getFaker()->unique()->word],
+            [$this->getFaker()->unique()->word => new UploadedFile(__FILE__, '')],
+            [$this->getFaker()->unique()->word => $this->getFaker()->unique()->word],
             $this->getFaker()->unique()->sentence
         );
-        $newRequest = $request->duplicate(array($queryKey => $queryValue));
+        $newRequest = $request->duplicate([$queryKey => $queryValue]);
         $newRequest->server->set('REQUEST_URI', $noQueryUrl);
         $this->assertEquals(
             $newRequest,
             $this->processor->process($request, new Result(
                 $url,
-                new Rule(new Directive('', '', '', '', array()), array())
+                new Rule(new Directive('', '', '', '', []), [])
             ))
         );
     }
@@ -150,20 +149,20 @@ class ProcessorTest extends TestCase
             $queryKey,
             $queryValue
         );
-        $oldQuery = array(
+        $oldQuery = [
             $this->getFaker()->unique()->word => $this->getFaker()->unique()->word
-        );
+        ];
         $request = new Request(
             $oldQuery,
-            array($this->getFaker()->unique()->word => $this->getFaker()->unique()->word),
-            array($this->getFaker()->unique()->word => $this->getFaker()->unique()->word),
-            array($this->getFaker()->unique()->word => $this->getFaker()->unique()->word),
-            array($this->getFaker()->unique()->word => new UploadedFile(__FILE__, '')),
-            array($this->getFaker()->unique()->word => $this->getFaker()->unique()->word),
+            [$this->getFaker()->unique()->word => $this->getFaker()->unique()->word],
+            [$this->getFaker()->unique()->word => $this->getFaker()->unique()->word],
+            [$this->getFaker()->unique()->word => $this->getFaker()->unique()->word],
+            [$this->getFaker()->unique()->word => new UploadedFile(__FILE__, '')],
+            [$this->getFaker()->unique()->word => $this->getFaker()->unique()->word],
             $this->getFaker()->unique()->sentence
         );
         $newRequest = $request->duplicate(array_merge(
-            array($queryKey => $queryValue),
+            [$queryKey => $queryValue],
             $oldQuery
         ));
         $newRequest->server->set('REQUEST_URI', $noQueryUrl);
@@ -171,14 +170,14 @@ class ProcessorTest extends TestCase
             $newRequest,
             $this->processor->process($request, new Result(
                 $url,
-                new Rule(new Directive('', '', '', '', array('qsappend' => true)), array())
+                new Rule(new Directive('', '', '', '', ['qsappend' => true]), [])
             ))
         );
         $this->assertEquals(
             $newRequest,
             $this->processor->process($request, new Result(
                 $url,
-                new Rule(new Directive('', '', '', '', array('QSA' => true)), array())
+                new Rule(new Directive('', '', '', '', ['QSA' => true]), [])
             ))
         );
     }

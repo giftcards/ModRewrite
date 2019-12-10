@@ -10,9 +10,10 @@ namespace Giftcards\ModRewrite\Tests\Compiler;
 
 
 use Giftcards\ModRewrite\Compiler\Directive;
-use Giftcards\ModRewrite\Tests\TestCase;
 
-class DirectiveTest extends TestCase
+use Omni\TestingBundle\TestCase\Extension\AbstractExtendableTestCase;
+
+class DirectiveTest extends AbstractExtendableTestCase
 {
     public function testGetters()
     {
@@ -20,7 +21,7 @@ class DirectiveTest extends TestCase
         $type = Directive::TYPE_ENGINE;
         $subject = 'subj';
         $predicate = 'pred';
-        $flags = array('key' => 'value', 'key2' => 'value2');
+        $flags = ['key' => 'value', 'key2' => 'value2'];
         $directive = new Directive($content, $type, $subject, $predicate, $flags);
         $this->assertEquals($content, $directive->getContent());
         $this->assertEquals($type, $directive->getType());
@@ -35,14 +36,14 @@ class DirectiveTest extends TestCase
         $type = Directive::TYPE_ENGINE;
         $subject = 'subj';
         $predicate = 'pred';
-        $flags = array('key' => 'value', 'key2' => true);
-        $directive = Directive::createFromMatches(array(
+        $flags = ['key' => 'value', 'key2' => true];
+        $directive = Directive::createFromMatches([
             $content,
             $type,
             $subject,
             $predicate,
             'key=value,key2'
-        ));
+        ]);
         $this->assertEquals($content, $directive->getContent());
         $this->assertEquals($type, $directive->getType());
         $this->assertEquals($subject, $directive->getSubject());

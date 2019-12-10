@@ -10,14 +10,15 @@ namespace Giftcards\ModRewrite\Tests\Formatter;
 
 
 use Giftcards\ModRewrite\Formatter\ChainFormatter;
-use Giftcards\ModRewrite\Tests\TestCase;
+use Mockery;
+use Omni\TestingBundle\TestCase\Extension\AbstractExtendableTestCase;
 
-class ChainFormatterTest extends TestCase
+class ChainFormatterTest extends AbstractExtendableTestCase
 {
     /** @var  ChainFormatter */
     protected $formatter;
 
-    public function setUp()
+    public function setUp() :void
     {
         $this->formatter = new ChainFormatter();
     }
@@ -28,22 +29,22 @@ class ChainFormatterTest extends TestCase
         $formatted1 = $this->getFaker()->word;
         $formatted2 = $this->getFaker()->word;
         $formatted3 = $this->getFaker()->word;
-        $state = \Mockery::mock('Giftcards\ModRewrite\MatchState');
-        $formatter1 = \Mockery::mock('Giftcards\ModRewrite\Formatter\FormatterInterface')
+        $state = Mockery::mock('Giftcards\ModRewrite\MatchState');
+        $formatter1 = Mockery::mock('Giftcards\ModRewrite\Formatter\FormatterInterface')
             ->shouldReceive('format')
             ->once()
             ->with($value, $state)
             ->andReturn($formatted1)
             ->getMock()
         ;
-        $formatter2 = \Mockery::mock('Giftcards\ModRewrite\Formatter\FormatterInterface')
+        $formatter2 = Mockery::mock('Giftcards\ModRewrite\Formatter\FormatterInterface')
             ->shouldReceive('format')
             ->once()
             ->with($formatted1, $state)
             ->andReturn($formatted2)
             ->getMock()
         ;
-        $formatter3 = \Mockery::mock('Giftcards\ModRewrite\Formatter\FormatterInterface')
+        $formatter3 = Mockery::mock('Giftcards\ModRewrite\Formatter\FormatterInterface')
             ->shouldReceive('format')
             ->once()
             ->with($formatted2, $state)

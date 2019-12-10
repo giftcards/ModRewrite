@@ -11,21 +11,22 @@ namespace Giftcards\ModRewrite\Tests\Condition;
 
 use Giftcards\ModRewrite\Condition\NotPredicateChecker;
 use Giftcards\ModRewrite\MatchState;
-use Giftcards\ModRewrite\Tests\TestCase;
+use Mockery;
 use Mockery\MockInterface;
+use Omni\TestingBundle\TestCase\Extension\AbstractExtendableTestCase;
 use Symfony\Component\HttpFoundation\Request;
 
-class NotPredicateCheckerTest extends TestCase
+class NotPredicateCheckerTest extends AbstractExtendableTestCase
 {
     /** @var  NotPredicateChecker */
     protected $checker;
     /** @var  MockInterface */
     protected $innerChecker;
 
-    public function setUp()
+    public function setUp() :void
     {
         $this->checker = new NotPredicateChecker(
-            $this->innerChecker = \Mockery::mock('Giftcards\ModRewrite\Condition\PredicateCheckerInterface')
+            $this->innerChecker = Mockery::mock('Giftcards\ModRewrite\Condition\PredicateCheckerInterface')
         );
     }
 
@@ -48,14 +49,14 @@ class NotPredicateCheckerTest extends TestCase
     {
         $predicate = $this->getFaker()->word;
         $subject = $this->getFaker()->word;
-        $flags = array(
+        $flags = [
             $this->getFaker()->word => $this->getFaker()->word,
             $this->getFaker()->word => true,
             $this->getFaker()->word => false,
-        );
+        ];
         $pathInfo = $this->getFaker()->word;
         $state = new MatchState(
-            \Mockery::mock('Giftcards\ModRewrite\Compiler\Rule'),
+            Mockery::mock('Giftcards\ModRewrite\Compiler\Rule'),
             $pathInfo,
             new Request()
         );

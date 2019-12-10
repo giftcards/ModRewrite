@@ -20,7 +20,7 @@ class MatchState
     protected $pathInfo;
     protected $rule;
     protected $request;
-    protected $matchReferences = array();
+    protected $matchReferences = [];
 
     public function __construct(Rule $rule, $pathInfo, Request $request)
     {
@@ -57,7 +57,7 @@ class MatchState
     {
         if (!isset($this->matchReferences[$type])) {
             
-            $this->matchReferences[$type] = array();
+            $this->matchReferences[$type] = [];
         }
         
         $this->matchReferences[$type] = array_merge($this->matchReferences[$type], $matchReferences);
@@ -66,7 +66,7 @@ class MatchState
 
     public function clearMatchReferences($type)
     {
-        $this->matchReferences[$type] = array();
+        $this->matchReferences[$type] = [];
         return $this;
     }
 
@@ -77,6 +77,6 @@ class MatchState
 
     public function getMatchReferences($type)
     {
-        return isset($this->matchReferences[$type]) ? $this->matchReferences[$type] : array();
+        return isset($this->matchReferences[$type]) ? $this->matchReferences[$type] : [];
     }
 }

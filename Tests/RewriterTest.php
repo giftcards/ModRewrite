@@ -16,10 +16,12 @@ use Giftcards\ModRewrite\Result;
 use Giftcards\ModRewrite\Rewriter;
 use Giftcards\ModRewrite\Compiler\Configuration;
 use Giftcards\ModRewrite\Tests\Mock\Mockery\Matcher\EqualsMatcher;
+use Mockery;
 use Mockery\MockInterface;
+use Omni\TestingBundle\TestCase\Extension\AbstractExtendableTestCase;
 use Symfony\Component\HttpFoundation\Request;
 
-class RewriterTest extends TestCase
+class RewriterTest extends AbstractExtendableTestCase
 {
     /** @var  Rewriter */
     protected $rewriter;
@@ -30,12 +32,12 @@ class RewriterTest extends TestCase
     /** @var  MockInterface */
     protected $checker;
 
-    public function setUp()
+    public function setUp() :void
     {
         $this->rewriter = new Rewriter(
-            $this->formatter = \Mockery::mock('Giftcards\ModRewrite\Formatter\FormatterInterface'),
-            $this->matcher = \Mockery::mock('Giftcards\ModRewrite\Rule\MatcherInterface'),
-            $this->checker = \Mockery::mock('Giftcards\ModRewrite\Condition\PredicateCheckerInterface')
+            $this->formatter = Mockery::mock('Giftcards\ModRewrite\Formatter\FormatterInterface'),
+            $this->matcher = Mockery::mock('Giftcards\ModRewrite\Rule\MatcherInterface'),
+            $this->checker = Mockery::mock('Giftcards\ModRewrite\Condition\PredicateCheckerInterface')
         );
     }
 
@@ -56,28 +58,28 @@ class RewriterTest extends TestCase
         $configuration = new Configuration();
         $configuration
             ->addRule(new Rule(
-                new Directive('', Directive::TYPE_RULE, 'rtyrtrty', 'bvcbvbcv', array()),
-                array()
+                new Directive('', Directive::TYPE_RULE, 'rtyrtrty', 'bvcbvbcv', []),
+                []
             ))
             ->addRule(new Rule(
-                new Directive('', Directive::TYPE_RULE, 'url', 'adsdas', array()),
-                array(
-                    new Directive('', Directive::TYPE_CONDITION, 'xxvxc', 'nvnvvb', array()),
-                    new Directive('', Directive::TYPE_CONDITION, 'dsadas', 'jgjhghj', array()),
-                )
+                new Directive('', Directive::TYPE_RULE, 'url', 'adsdas', []),
+                [
+                    new Directive('', Directive::TYPE_CONDITION, 'xxvxc', 'nvnvvb', []),
+                    new Directive('', Directive::TYPE_CONDITION, 'dsadas', 'jgjhghj', []),
+                ]
             ))
             ->addRule(new Rule(
-                new Directive('', Directive::TYPE_RULE, 'url', 'wwrewre', array()),
-                array(
-                    new Directive('', Directive::TYPE_CONDITION, 'cbcvcvb', 'xxzcxz', array('OR' => true)),
-                    new Directive('', Directive::TYPE_CONDITION, 'ghghjghj', 'bbcvbv', array()),
-                )
+                new Directive('', Directive::TYPE_RULE, 'url', 'wwrewre', []),
+                [
+                    new Directive('', Directive::TYPE_CONDITION, 'cbcvcvb', 'xxzcxz', ['OR' => true]),
+                    new Directive('', Directive::TYPE_CONDITION, 'ghghjghj', 'bbcvbv', []),
+                ]
             ))
         ;
         $rules = $configuration->getRules();
         $conditions2 = $rules[1]->getConditions();
         $conditions3 = $rules[2]->getConditions();
-        $request = new Request(array('key' => 'value'));
+        $request = new Request(['key' => 'value']);
         $state1 = new MatchState($rules[0], $pathInfo, $request);
         $state2 = new MatchState($rules[1], $pathInfo, $request);
         $state3 = new MatchState($rules[2], $pathInfo, $request);
@@ -143,28 +145,28 @@ class RewriterTest extends TestCase
         $configuration = new Configuration();
         $configuration
             ->addRule(new Rule(
-                new Directive('', Directive::TYPE_RULE, 'rtyrtrty', 'bvcbvbcv', array()),
-                array()
+                new Directive('', Directive::TYPE_RULE, 'rtyrtrty', 'bvcbvbcv', []),
+                []
             ))
             ->addRule(new Rule(
-                new Directive('', Directive::TYPE_RULE, 'url', 'adsdas', array()),
-                array(
-                    new Directive('', Directive::TYPE_CONDITION, 'xxvxc', 'nvnvvb', array()),
-                    new Directive('', Directive::TYPE_CONDITION, 'dsadas', 'jgjhghj', array()),
-                )
+                new Directive('', Directive::TYPE_RULE, 'url', 'adsdas', []),
+                [
+                    new Directive('', Directive::TYPE_CONDITION, 'xxvxc', 'nvnvvb', []),
+                    new Directive('', Directive::TYPE_CONDITION, 'dsadas', 'jgjhghj', []),
+                ]
             ))
             ->addRule(new Rule(
-                new Directive('', Directive::TYPE_RULE, 'url', 'wwrewre', array()),
-                array(
-                    new Directive('', Directive::TYPE_CONDITION, 'cbcvcvb', 'xxzcxz', array()),
-                    new Directive('', Directive::TYPE_CONDITION, 'ghghjghj', 'bbcvbv', array()),
-                )
+                new Directive('', Directive::TYPE_RULE, 'url', 'wwrewre', []),
+                [
+                    new Directive('', Directive::TYPE_CONDITION, 'cbcvcvb', 'xxzcxz', []),
+                    new Directive('', Directive::TYPE_CONDITION, 'ghghjghj', 'bbcvbv', []),
+                ]
             ))
         ;
         $rules = $configuration->getRules();
         $conditions2 = $rules[1]->getConditions();
         $conditions3 = $rules[2]->getConditions();
-        $request = new Request(array('key' => 'value'));
+        $request = new Request(['key' => 'value']);
         $state1 = new MatchState($rules[0], $pathInfo, $request);
         $state2 = new MatchState($rules[1], $pathInfo, $request);
         $state3 = new MatchState($rules[2], $pathInfo, $request);
@@ -236,28 +238,28 @@ class RewriterTest extends TestCase
         $configuration = new Configuration();
         $configuration
             ->addRule(new Rule(
-                new Directive('', Directive::TYPE_RULE, 'rtyrtrty', 'bvcbvbcv', array()),
-                array()
+                new Directive('', Directive::TYPE_RULE, 'rtyrtrty', 'bvcbvbcv', []),
+                []
             ))
             ->addRule(new Rule(
-                new Directive('', Directive::TYPE_RULE, 'url', 'adsdas', array()),
-                array(
-                    new Directive('', Directive::TYPE_CONDITION, 'xxvxc', 'nvnvvb', array()),
-                    new Directive('', Directive::TYPE_CONDITION, 'dsadas', 'jgjhghj', array()),
-                )
+                new Directive('', Directive::TYPE_RULE, 'url', 'adsdas', []),
+                [
+                    new Directive('', Directive::TYPE_CONDITION, 'xxvxc', 'nvnvvb', []),
+                    new Directive('', Directive::TYPE_CONDITION, 'dsadas', 'jgjhghj', []),
+                ]
             ))
             ->addRule(new Rule(
-                new Directive('', Directive::TYPE_RULE, 'url', 'wwrewre', array()),
-                array(
-                    new Directive('', Directive::TYPE_CONDITION, 'cbcvcvb', 'xxzcxz', array('OR' => true)),
-                    new Directive('', Directive::TYPE_CONDITION, 'ghghjghj', 'bbcvbv', array()),
-                )
+                new Directive('', Directive::TYPE_RULE, 'url', 'wwrewre', []),
+                [
+                    new Directive('', Directive::TYPE_CONDITION, 'cbcvcvb', 'xxzcxz', ['OR' => true]),
+                    new Directive('', Directive::TYPE_CONDITION, 'ghghjghj', 'bbcvbv', []),
+                ]
             ))
         ;
         $rules = $configuration->getRules();
         $conditions2 = $rules[1]->getConditions();
         $conditions3 = $rules[2]->getConditions();
-        $request = new Request(array('key' => 'value'));
+        $request = new Request(['key' => 'value']);
         $state1 = new MatchState($rules[0], $pathInfo, $request);
         $state2 = new MatchState($rules[1], $pathInfo, $request);
         $state3 = new MatchState($rules[2], $pathInfo, $request);

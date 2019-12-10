@@ -11,10 +11,10 @@ namespace Giftcards\ModRewrite\Compiler;
 
 class Configuration
 {
-    protected $rules = array();
+    protected $rules = [];
     protected $engineOn = false;
-    protected $options = array();
-    protected $maps = array();
+    protected $options = [];
+    protected $maps = [];
 
     public function setEngineOn($engineOn)
     {
