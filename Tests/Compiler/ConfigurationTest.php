@@ -10,9 +10,10 @@ namespace Giftcards\ModRewrite\Tests\Compiler;
 
 
 use Giftcards\ModRewrite\Compiler\Configuration;
-use Giftcards\ModRewrite\Tests\TestCase;
+use Mockery;
+use Omni\TestingBundle\TestCase\Extension\AbstractExtendableTestCase;
 
-class ConfigurationTest extends TestCase
+class ConfigurationTest extends AbstractExtendableTestCase
 {
     public function testGettersSetters()
     {
@@ -20,11 +21,11 @@ class ConfigurationTest extends TestCase
         $this->assertFalse($configuration->isEngineOn());
         $this->assertSame($configuration, $configuration->setEngineOn($on = $this->getFaker()->boolean));
         $this->assertSame($on, $configuration->isEngineOn());
-        $this->assertEquals(array(), $configuration->getRules());
-        $rules = array(
-            \Mockery::mock('Giftcards\ModRewrite\Compiler\Rule'),
-            \Mockery::mock('Giftcards\ModRewrite\Compiler\Rule'),
-        );
+        $this->assertEquals([], $configuration->getRules());
+        $rules = [
+            Mockery::mock('Giftcards\ModRewrite\Compiler\Rule'),
+            Mockery::mock('Giftcards\ModRewrite\Compiler\Rule'),
+        ];
 
         foreach ($rules as $rule) {
 
@@ -33,10 +34,10 @@ class ConfigurationTest extends TestCase
 
         $this->assertEquals($rules, $configuration->getRules());
         
-        $options = array(
-            \Mockery::mock('Giftcards\ModRewrite\Compiler\Directive'),
-            \Mockery::mock('Giftcards\ModRewrite\Compiler\Directive'),
-        );
+        $options = [
+            Mockery::mock('Giftcards\ModRewrite\Compiler\Directive'),
+            Mockery::mock('Giftcards\ModRewrite\Compiler\Directive'),
+        ];
 
         foreach ($options as $option) {
 
@@ -45,10 +46,10 @@ class ConfigurationTest extends TestCase
 
         $this->assertEquals($options, $configuration->getOptions());        
         
-        $maps = array(
-            \Mockery::mock('Giftcards\ModRewrite\Compiler\Directive'),
-            \Mockery::mock('Giftcards\ModRewrite\Compiler\Directive'),
-        );
+        $maps = [
+            Mockery::mock('Giftcards\ModRewrite\Compiler\Directive'),
+            Mockery::mock('Giftcards\ModRewrite\Compiler\Directive'),
+        ];
         
         foreach ($maps as $map) {
 

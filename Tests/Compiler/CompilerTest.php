@@ -12,10 +12,11 @@ namespace Giftcards\ModRewrite\Tests\Compiler;
 use Giftcards\ModRewrite\Compiler\Compiler;
 use Giftcards\ModRewrite\Compiler\Directive;
 use Giftcards\ModRewrite\Compiler\Configuration;
-use Giftcards\ModRewrite\Tests\TestCase;
+use Mockery;
 use Mockery\MockInterface;
+use Omni\TestingBundle\TestCase\Extension\AbstractExtendableTestCase;
 
-class CompilerTest extends TestCase
+class CompilerTest extends AbstractExtendableTestCase
 {
     /** @var  Compiler */
     protected $compiler;
@@ -24,21 +25,21 @@ class CompilerTest extends TestCase
     /** @var  MockInterface */
     protected $parser;
 
-    public function setUp()
+    public function setUp() :void
     {
         $this->compiler = new Compiler(
-            $this->lexer = \Mockery::mock('Giftcards\ModRewrite\Compiler\Lexer'),
-            $this->parser = \Mockery::mock('Giftcards\ModRewrite\Compiler\Parser')
+            $this->lexer = Mockery::mock('Giftcards\ModRewrite\Compiler\Lexer'),
+            $this->parser = Mockery::mock('Giftcards\ModRewrite\Compiler\Parser')
         );
     }
 
     public function testCompile()
     {
         $content = 'sdfsdfsdf';
-        $directives = array(
-            new Directive('', '', '', '', array()),
-            new Directive('', '', '', '', array()),
-        );
+        $directives = [
+            new Directive('', '', '', '', []),
+            new Directive('', '', '', '', []),
+        ];
         $engine = new Configuration();
         $this->lexer
             ->shouldReceive('lex')

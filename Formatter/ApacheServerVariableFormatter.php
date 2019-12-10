@@ -16,7 +16,7 @@ class ApacheServerVariableFormatter implements FormatterInterface
 
     public function __construct()
     {
-        $this->variables = array(
+        $this->variables = [
             'QUERY_STRING' => function (MatchState $matchState) {
                 return http_build_query($matchState->getRequest()->query->all(), '', '&');
             },
@@ -29,7 +29,7 @@ class ApacheServerVariableFormatter implements FormatterInterface
             'HTTP_HOST' => function (MatchState $matchState) {
                 return $matchState->getRequest()->getHttpHost();
             },
-        );
+        ];
     }
 
     public function format(

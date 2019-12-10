@@ -18,14 +18,14 @@ class Parser
     public function parse(array $directives)
     {
         $engine = new Configuration();
-        $conditions = array();
+        $conditions = [];
 
         foreach ($directives as $directive) {
 
             if ($directive->getType() == Directive::TYPE_RULE) {
 
                 $engine->addRule(new Rule($directive, $conditions));
-                $conditions = array();
+                $conditions = [];
             }
 
             if ($directive->getType() == Directive::TYPE_CONDITION) {

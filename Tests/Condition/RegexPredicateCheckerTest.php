@@ -11,15 +11,16 @@ namespace Giftcards\ModRewrite\Tests\Condition;
 
 use Giftcards\ModRewrite\Condition\RegexPredicateChecker;
 use Giftcards\ModRewrite\MatchState;
-use Giftcards\ModRewrite\Tests\TestCase;
+use Mockery;
+use Omni\TestingBundle\TestCase\Extension\AbstractExtendableTestCase;
 use Symfony\Component\HttpFoundation\Request;
 
-class RegexPredicateCheckerTest extends TestCase
+class RegexPredicateCheckerTest extends AbstractExtendableTestCase
 {
     /** @var  RegexPredicateChecker */
     protected $checker;
 
-    public function setUp()
+    public function setUp() :void
     {
         $this->checker = new RegexPredicateChecker();
     }
@@ -28,10 +29,10 @@ class RegexPredicateCheckerTest extends TestCase
     {
         $predicate = '^/it(.*)';
         $subject = '/not-it';
-        $flags = array();
+        $flags = [];
         $pathInfo = $this->getFaker()->word;
         $state = new MatchState(
-            \Mockery::mock('Giftcards\ModRewrite\Compiler\Rule'),
+            Mockery::mock('Giftcards\ModRewrite\Compiler\Rule'),
             $pathInfo,
             new Request()
         );
@@ -52,37 +53,37 @@ class RegexPredicateCheckerTest extends TestCase
     {
         $predicate = '^/it(.*)';
         $subject = '/it-oh-yeah';
-        $flags = array();
+        $flags = [];
         $pathInfo = $this->getFaker()->word;
         $state = new MatchState(
-            \Mockery::mock('Giftcards\ModRewrite\Compiler\Rule'),
+            Mockery::mock('Giftcards\ModRewrite\Compiler\Rule'),
             $pathInfo,
             new Request()
         );
         $this->assertTrue($this->checker->checkPredicate($predicate, $subject, $flags, $state));
-        $this->assertEquals(array(
+        $this->assertEquals([
             '/it-oh-yeah',
             '-oh-yeah'
-        ), $state->getMatchReferences(MatchState::MATCH_REFERENCE_TYPE_CONDITION));
+        ], $state->getMatchReferences(MatchState::MATCH_REFERENCE_TYPE_CONDITION));
     }
 
     public function testRuleMatchesWhereCaseInsensitiveMatch()
     {
         $predicate = '^/it(.*)';
         $subject = '/IT-oh-yeah';
-        $flags = array(
+        $flags = [
             'NC' => true
-        );
+        ];
         $pathInfo = $this->getFaker()->word;
         $state = new MatchState(
-            \Mockery::mock('Giftcards\ModRewrite\Compiler\Rule'),
+            Mockery::mock('Giftcards\ModRewrite\Compiler\Rule'),
             $pathInfo,
             new Request()
         );
         $this->assertTrue($this->checker->checkPredicate($predicate, $subject, $flags, $state));
-        $this->assertEquals(array(
+        $this->assertEquals([
             '/IT-oh-yeah',
             '-oh-yeah'
-        ), $state->getMatchReferences(MatchState::MATCH_REFERENCE_TYPE_CONDITION));
+        ], $state->getMatchReferences(MatchState::MATCH_REFERENCE_TYPE_CONDITION));
     }
 }

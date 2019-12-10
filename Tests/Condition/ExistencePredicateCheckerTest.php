@@ -11,15 +11,16 @@ namespace Giftcards\ModRewrite\Tests\Condition;
 
 use Giftcards\ModRewrite\Condition\ExistencePredicateChecker;
 use Giftcards\ModRewrite\MatchState;
-use Giftcards\ModRewrite\Tests\TestCase;
+use Mockery;
+use Omni\TestingBundle\TestCase\Extension\AbstractExtendableTestCase;
 use Symfony\Component\HttpFoundation\Request;
 
-class ExistencePredicateCheckerTest extends TestCase
+class ExistencePredicateCheckerTest extends AbstractExtendableTestCase
 {
     /** @var  ExistencePredicateChecker */
     protected $checker;
 
-    public function setUp()
+    public function setUp() :void
     {
         $this->checker = new ExistencePredicateChecker(
             __DIR__.'/../Fixtures'
@@ -35,14 +36,14 @@ class ExistencePredicateCheckerTest extends TestCase
 
     public function testCheckPredicate()
     {
-        $flags = array(
+        $flags = [
             $this->getFaker()->word => $this->getFaker()->word,
             $this->getFaker()->word => true,
             $this->getFaker()->word => false,
-        );
+        ];
         $pathInfo = $this->getFaker()->word;
         $state = new MatchState(
-            \Mockery::mock('Giftcards\ModRewrite\Compiler\Rule'),
+            Mockery::mock('Giftcards\ModRewrite\Compiler\Rule'),
             $pathInfo,
             new Request()
         );

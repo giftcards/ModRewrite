@@ -11,11 +11,12 @@ namespace Giftcards\ModRewrite\Tests\Condition;
 
 use Giftcards\ModRewrite\Condition\ChainPredicateChecker;
 use Giftcards\ModRewrite\MatchState;
-use Giftcards\ModRewrite\Tests\TestCase;
+use Mockery;
 use Mockery\MockInterface;
+use Omni\TestingBundle\TestCase\Extension\AbstractExtendableTestCase;
 use Symfony\Component\HttpFoundation\Request;
 
-class ChainPredicateCheckerTest extends TestCase
+class ChainPredicateCheckerTest extends AbstractExtendableTestCase
 {
     /** @var  ChainPredicateChecker */
     protected $chainChecker;
@@ -28,15 +29,15 @@ class ChainPredicateCheckerTest extends TestCase
     /** @var  MockInterface */
     protected $defaultChecker;
 
-    public function setUp()
+    public function setUp() :void
     {
         $this->chainChecker = new ChainPredicateChecker();
         $this->chainChecker
-            ->add($this->checker1 = \Mockery::mock('Giftcards\ModRewrite\Condition\PredicateCheckerInterface'))
-            ->add($this->checker2 = \Mockery::mock('Giftcards\ModRewrite\Condition\PredicateCheckerInterface'))
-            ->add($this->checker3 = \Mockery::mock('Giftcards\ModRewrite\Condition\PredicateCheckerInterface'))
+            ->add($this->checker1 = Mockery::mock('Giftcards\ModRewrite\Condition\PredicateCheckerInterface'))
+            ->add($this->checker2 = Mockery::mock('Giftcards\ModRewrite\Condition\PredicateCheckerInterface'))
+            ->add($this->checker3 = Mockery::mock('Giftcards\ModRewrite\Condition\PredicateCheckerInterface'))
         ;
-        $this->defaultChecker = \Mockery::mock('Giftcards\ModRewrite\Condition\PredicateCheckerInterface');
+        $this->defaultChecker = Mockery::mock('Giftcards\ModRewrite\Condition\PredicateCheckerInterface');
     }
 
     public function testSupports()
@@ -64,21 +65,19 @@ class ChainPredicateCheckerTest extends TestCase
         $this->assertTrue($this->chainChecker->supports($predicate));
     }
 
-    /**
-     * @expectedException \RuntimeException
-     */
     public function testCheckPredicateWhereNoneSupportedAndNoDefault()
     {
+        $this->expectException('\RuntimeException');
         $predicate = $this->getFaker()->word;
         $subject = $this->getFaker()->word;
-        $flags = array(
+        $flags = [
             $this->getFaker()->word => $this->getFaker()->word,
             $this->getFaker()->word => true,
             $this->getFaker()->word => false,
-        );
+        ];
         $pathInfo = $this->getFaker()->word;
         $state = new MatchState(
-            \Mockery::mock('Giftcards\ModRewrite\Compiler\Rule'),
+            Mockery::mock('Giftcards\ModRewrite\Compiler\Rule'),
             $pathInfo,
             new Request()
         );
@@ -107,14 +106,14 @@ class ChainPredicateCheckerTest extends TestCase
     {
         $predicate = $this->getFaker()->word;
         $subject = $this->getFaker()->word;
-        $flags = array(
+        $flags = [
             $this->getFaker()->word => $this->getFaker()->word,
             $this->getFaker()->word => true,
             $this->getFaker()->word => false,
-        );
+        ];
         $pathInfo = $this->getFaker()->word;
         $state = new MatchState(
-            \Mockery::mock('Giftcards\ModRewrite\Compiler\Rule'),
+            Mockery::mock('Giftcards\ModRewrite\Compiler\Rule'),
             $pathInfo,
             new Request()
         );
@@ -153,14 +152,14 @@ class ChainPredicateCheckerTest extends TestCase
     {
         $predicate = $this->getFaker()->word;
         $subject = $this->getFaker()->word;
-        $flags = array(
+        $flags = [
             $this->getFaker()->word => $this->getFaker()->word,
             $this->getFaker()->word => true,
             $this->getFaker()->word => false,
-        );
+        ];
         $pathInfo = $this->getFaker()->word;
         $state = new MatchState(
-            \Mockery::mock('Giftcards\ModRewrite\Compiler\Rule'),
+            Mockery::mock('Giftcards\ModRewrite\Compiler\Rule'),
             $pathInfo,
             new Request()
         );

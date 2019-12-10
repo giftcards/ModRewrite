@@ -7,14 +7,21 @@
             "Giftcards\\ModRewrite": "src/"
         }
     },
+    "repositories":[
+        {
+            "type":"composer",
+            "url":"https://repo.packagist.com/cashstar/"
+        }
+    ],
     "require": {
-        "php": ">=5.3"
+        "php": ">=7.1"
     },
     "require-dev": {
-        "mockery/mockery": "0.9.3",
-        "fzaninotto/faker" : "~1.2",
-        "symfony/http-foundation": "~2.0",
-        "phpunit/phpunit": "^4.0"
+        "mockery/mockery": "^1.2",
+        "fzaninotto/faker" : "^1.8",
+        "symfony/http-foundation": "^3.4",
+        "phpunit/phpunit": "^8.5",
+        "omni/testing-bundle": "^1.32"
     },
     "target-dir": "src/Giftcards/ModRewrite",
     "keywords": ["mod rewrite", "mod_rewrite","url rewrite","request rewrite"]

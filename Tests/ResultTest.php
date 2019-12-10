@@ -8,10 +8,11 @@
 
 namespace Giftcards\ModRewrite\Tests;
 
-
 use Giftcards\ModRewrite\Result;
+use Mockery;
+use Omni\TestingBundle\TestCase\Extension\AbstractExtendableTestCase;
 
-class ResultTest extends TestCase
+class ResultTest extends AbstractExtendableTestCase
 {
     public function testGetters()
     {
@@ -19,7 +20,7 @@ class ResultTest extends TestCase
         $result = new Result($url);
         $this->assertSame($url, $result->getUrl());
         $this->assertNull($result->getMatchedRule());
-        $rule = \Mockery::mock('Giftcards\ModRewrite\Compiler\Rule');
+        $rule = Mockery::mock('Giftcards\ModRewrite\Compiler\Rule');
         $result = new Result($url, $rule);
         $this->assertSame($url, $result->getUrl());
         $this->assertSame($rule, $result->getMatchedRule());

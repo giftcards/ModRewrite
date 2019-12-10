@@ -13,15 +13,15 @@ use Giftcards\ModRewrite\Compiler\Directive;
 use Giftcards\ModRewrite\Compiler\Rule;
 use Giftcards\ModRewrite\MatchState;
 use Giftcards\ModRewrite\Rule\RegexMatcher;
-use Giftcards\ModRewrite\Tests\TestCase;
+use Omni\TestingBundle\TestCase\Extension\AbstractExtendableTestCase;
 use Symfony\Component\HttpFoundation\Request;
 
-class RegexMatcherTest extends TestCase
+class RegexMatcherTest extends AbstractExtendableTestCase
 {
     /** @var  RegexMatcher */
     protected $matcher;
 
-    public function setUp()
+    public function setUp() :void
     {
         $this->matcher = new RegexMatcher();
     }
@@ -30,8 +30,8 @@ class RegexMatcherTest extends TestCase
     {
         $pathInfo = '/not-it';
         $rule = new Rule(
-            new Directive('', Directive::TYPE_RULE, '^/it(.*)', '/other-path', array()),
-            array()
+            new Directive('', Directive::TYPE_RULE, '^/it(.*)', '/other-path', []),
+            []
         );
         $state = new MatchState($rule, $pathInfo, new Request());
         $this->assertFalse($this->matcher->ruleMatches($pathInfo, $rule, $state));
@@ -42,14 +42,14 @@ class RegexMatcherTest extends TestCase
     {
         $pathInfo = '/it-oh-yeah';
         $rule = new Rule(
-            new Directive('', Directive::TYPE_RULE, '^/it(.*)', '/other-path', array()),
-            array()
+            new Directive('', Directive::TYPE_RULE, '^/it(.*)', '/other-path', []),
+            []
         );
         $state = new MatchState($rule, $pathInfo, new Request());
         $this->assertTrue($this->matcher->ruleMatches($pathInfo, $rule, $state));
-        $this->assertEquals(array(
+        $this->assertEquals([
             '/it-oh-yeah',
             '-oh-yeah'
-        ), $state->getMatchReferences(MatchState::MATCH_REFERENCE_TYPE_REWRITE));
+        ], $state->getMatchReferences(MatchState::MATCH_REFERENCE_TYPE_REWRITE));
     }
 }

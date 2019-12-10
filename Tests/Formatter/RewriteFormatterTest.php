@@ -11,15 +11,16 @@ namespace Giftcards\ModRewrite\Tests\Formatter;
 
 use Giftcards\ModRewrite\Formatter\RewriteFormatter;
 use Giftcards\ModRewrite\MatchState;
-use Giftcards\ModRewrite\Tests\TestCase;
+use Mockery;
+use Omni\TestingBundle\TestCase\Extension\AbstractExtendableTestCase;
 use Symfony\Component\HttpFoundation\Request;
 
-class RewriteFormatterTest extends TestCase
+class RewriteFormatterTest extends AbstractExtendableTestCase
 {
     /** @var  RewriteFormatter */
     protected $formatter;
 
-    public function setUp()
+    public function setUp() :void
     {
         $this->formatter = new RewriteFormatter();
     }
@@ -27,8 +28,8 @@ class RewriteFormatterTest extends TestCase
     public function testFormat()
     {
         $value = 'dsffsd$1ffsd$2';
-        $state = new MatchState(\Mockery::mock('Giftcards\ModRewrite\Compiler\Rule'), '', new Request());
-        $state->addMatchReferences(array('', 'hello'), MatchState::MATCH_REFERENCE_TYPE_REWRITE);
+        $state = new MatchState(Mockery::mock('Giftcards\ModRewrite\Compiler\Rule'), '', new Request());
+        $state->addMatchReferences(['', 'hello'], MatchState::MATCH_REFERENCE_TYPE_REWRITE);
         $this->assertEquals('dsffsdhelloffsd', $this->formatter->format($value, $state));
     }
 }

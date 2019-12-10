@@ -8,13 +8,13 @@
 
 namespace Giftcards\ModRewrite\Condition;
 
-
 use Giftcards\ModRewrite\MatchState;
+use RuntimeException;
 
 class ChainPredicateChecker implements PredicateCheckerInterface
 {
     /** @var PredicateCheckerInterface[] */
-    protected $checkers = array();
+    protected $checkers = [];
     /** @var  PredicateCheckerInterface|null */
     protected $default;
 
@@ -72,6 +72,6 @@ class ChainPredicateChecker implements PredicateCheckerInterface
             );
         }
 
-        throw new \RuntimeException('no predicate processor could process the predicate.');
+        throw new RuntimeException('no predicate processor could process the predicate.');
     }
 }

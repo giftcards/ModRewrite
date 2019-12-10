@@ -21,12 +21,12 @@ class Directive
     protected $type;
     protected $subject;
     protected $predicate;
-    protected $flags = array();
+    protected $flags = [];
 
     public static function createFromMatches(array $matches)
     {
-        $flagGroups = isset($matches[4]) ? explode(',', $matches[4]) : array();
-        $flags = array();
+        $flagGroups = isset($matches[4]) ? explode(',', $matches[4]) : [];
+        $flags = [];
 
         foreach ($flagGroups as $flag) {
 

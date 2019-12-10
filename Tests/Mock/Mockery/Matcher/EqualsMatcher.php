@@ -1,8 +1,9 @@
 <?php
 namespace Giftcards\ModRewrite\Tests\Mock\Mockery\Matcher;
 
-use Giftcards\ModRewrite\MatchState;
 use Mockery\Matcher\MatcherAbstract;
+use PHPUnit\Framework\AssertionFailedError;
+use PHPUnit\Framework\Constraint\IsEqual;
 
 class EqualsMatcher extends MatcherAbstract
 {
@@ -14,21 +15,19 @@ class EqualsMatcher extends MatcherAbstract
 	 */
 	public function __construct($expected, $delta = 0, $maxDepth = 10, $canonicalize = false, $ignoreCase = false) {
 
-		$this->constraint = new \PHPUnit_Framework_Constraint_IsEqual(
+		$this->constraint = new IsEqual(
 				$expected, $delta, $maxDepth, $canonicalize, $ignoreCase
 		);
+		parent::__construct($expected);
 	}
 
-	/**
-	 * @param unkown $actual
-	 */
 	public function match(&$actual) {
 
 		try {
 			
 			$this->constraint->evaluate($actual);
 			return true;
-		} catch (\PHPUnit_Framework_AssertionFailedError $e) {
+		} catch (AssertionFailedError $e) {
 			return false;
 		}
 	}

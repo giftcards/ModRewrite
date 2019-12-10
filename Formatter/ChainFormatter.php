@@ -13,7 +13,7 @@ use Giftcards\ModRewrite\MatchState;
 class ChainFormatter implements FormatterInterface
 {
     /** @var FormatterInterface[] */
-    protected $formatter = array();
+    protected $formatter = [];
 
     public function add(FormatterInterface $source)
     {
